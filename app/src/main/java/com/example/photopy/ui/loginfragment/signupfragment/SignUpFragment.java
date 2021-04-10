@@ -23,11 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import static android.content.ContentValues.TAG;
 
 public class SignUpFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FragmentSignUpBinding binding;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +37,7 @@ public class SignUpFragment extends Fragment {
         View view = binding.getRoot();
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
