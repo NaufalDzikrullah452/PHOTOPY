@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/text_1"
-        app:layout_constraintTop_toBottomOf="@+id/ID_Login_BtnSignUp" />
+        app:layout_constraintTop_toBottomOf="@+id/ID_Login_BtnSignInEmail" />
 
     <TextView
         android:id="@+id/text_1"
@@ -78,10 +78,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ID_Login_BtnSignUp" />
+        app:layout_constraintTop_toBottomOf="@+id/ID_Login_BtnSignInEmail" />
 
     <Button
-        android:id="@+id/ID_Login_BtnSign"
+        android:id="@+id/ID_Login_BtnSign_Google"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/ID_Login_BtnSignUp"
+        android:id="@+id/ID_Login_BtnSignInEmail"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -115,5 +115,5 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ID_Login_BtnSign" />
+        app:layout_constraintTop_toBottomOf="@+id/ID_Login_BtnSign_Google" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,11 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.example.photopy.R;
-import com.example.photopy.databinding.FragmentSignInBinding;
 import com.example.photopy.databinding.FragmentSignUpBinding;
-import com.example.photopy.lib.Library;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,26 +46,31 @@ public class SignUpFragment extends Fragment {
                 String username = binding.IDSignUpEdtUsername.getText().toString();
                 String email = binding.IDSignUpEdtEmail.getText().toString();
                 String password = binding.IDSignUpEdtPassword.getText().toString();
-                Log.d("SignUp",username+email+password);
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("SignUp", "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Navigation.findNavController(v).navigate(R.id.action_signUpFragment_to_loginFragment);
+                if(username.equals("")||email.equals("")||password.equals("")){
+                    Toast.makeText(requireContext(),"Isi Field",Toast.LENGTH_LONG).show();
+                }else {
+
+                    Log.d("SignUp",username+email+password);
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("SignUp", "createUserWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Navigation.findNavController(v).navigate(R.id.action_signUpFragment_to_loginFragment);
 
 //                            updateUI(user);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("SignUp", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(requireContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("SignUp", "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(requireContext(), "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
     }

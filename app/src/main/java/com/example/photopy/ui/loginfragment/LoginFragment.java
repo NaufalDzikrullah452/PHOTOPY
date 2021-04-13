@@ -26,18 +26,11 @@ public class LoginFragment extends Fragment {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
         return view;
     }
 
@@ -46,13 +39,13 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         addData();
         checkLogin(view);
-        binding.IDLoginBtnSign.setOnClickListener(new View.OnClickListener() {
+        binding.IDLoginBtnSignInEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signInFragment);
             }
         });
-        binding.IDLoginBtnSignUp.setOnClickListener(new View.OnClickListener() {
+        binding.tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signUpFragment);

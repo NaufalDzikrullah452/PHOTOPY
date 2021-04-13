@@ -42,30 +42,37 @@ public class SignInFragment extends GoogleSignInActivity {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        String email = binding.IDSignInEdtEmail.getText().toString();
-        String password = binding.IDSignInEdtPassword.getText().toString();
+
         binding.IDSignInBtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("SignIn", "signInWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_loginFragment);
+                String email = binding.IDSignInEdtEmail.getText().toString();
+                String password = binding.IDSignInEdtPassword.getText().toString();
+                if(email.equals("")||password.equals("")){
+                    Toast.makeText(requireContext(),"Isi Field",Toast.LENGTH_LONG).show();
+
+                }else{
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("SignIn", "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_navigation_home);
 
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("SignIn", "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(requireContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("SignIn", "signInWithEmail:failure", task.getException());
+                                        Toast.makeText(requireContext(), "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                }
 
             }
         });
