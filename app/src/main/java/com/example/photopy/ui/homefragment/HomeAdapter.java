@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private final ArrayList<ModelPost> data;
     int click = 0;
     boolean love = false;
-    String url="";
+    String url = "";
+    String uids;
 
     public HomeAdapter(ArrayList<ModelPost> data) {
         this.data = data;
@@ -50,37 +52,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         ModelPost datas = data.get(position);
         binding.textView4.setText(datas.getAuthorUID());
         binding.IDHomeLove.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference docRef = db.collection("Profile").document(userUid);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("HomeAdapterFirestore", "" + document.getData());
-                        ModelProfile profile = document.toObject(ModelProfile.class);
-                        url = profile.getImageAuthor();
-                        ImageView targetProfile =  binding.IDHomeImageUser;
-//                        Picasso.get().load(url).into(targetProfile);
-                        Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/database1-a8d71.appspot.com/o/Photopy%2Fpalma-de-mallorca-2900559_1920.jpg?alt=media&token=4e10500b-4ce4-43c5-a46a-0fcc1f1aafdd").into(targetProfile);
-                        ImageView target = binding.IDHomeImagePostingan;
-
-
-                        Picasso.get().load(datas.getImageURL()).into(target);
-                        Log.d("HomeAdapterImage", url);
-                    } else {
-                        Log.d("HomeAdapterFirestore", "No such document");
-                    }
-                }
-            }
-
-        });
-
-
-
+        ImageView target = binding.IDHomeImagePostingan;
+        Picasso.get().load(datas.getImageURL()).into(target);
+        holder.data(datas.getAuthorUID());
 
 
     }
@@ -91,6 +65,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+
+        public void data(String uid) {
+
+            uids = uid;
+
+        }
+
         public ViewHolder(@NonNull ItemHomeBinding binding) {
             super(binding.getRoot());
             binding.IDHomeImagePostingan.setOnClickListener(new View.OnClickListener() {
@@ -109,31 +91,34 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     }
                 }
             });
-        }
-    }
 
-    String getImageProfile() {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference docRef = db.collection("Profile").document(userUid);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("HomeAdapterFirestore", "" + document.getData());
-                        ModelProfile profile = document.toObject(ModelProfile.class);
-                        url = profile.getImageAuthor();
-                        Log.d("HomeAdapterImage", url);
-                    } else {
-                        Log.d("HomeAdapterFirestore", "No such document");
+            Log.d("HomeAdapter", "Uid = " + uids);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DocumentReference docRef = db.collection("Profile").document(uid);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Log.d("HomeAdapterFirestore", "" + document.getData());
+                            ModelProfile profile = document.toObject(ModelProfile.class);
+                            url = profile.getImageAuthor();
+                            ImageView targetProfile = binding.IDHomeImageUser;
+                            Picasso.get().load(url).into(targetProfile);
+                            Log.d("HomeAdapterImage", url);
+                        } else {
+                            Log.d("HomeAdapterFirestore", "No such document");
+                        }
                     }
                 }
-            }
-        });
-        return url;
+
+            });
+
+        }
+
     }
+
 
 }

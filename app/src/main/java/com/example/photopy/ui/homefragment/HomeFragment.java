@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
         Log.d("HomeFragment",user+password);
 
         ModelPost mdata = new ModelPost("Ismail","https://firebasestorage.googleapis.com/v0/b/database1-a8d71.appspot.com/o/Photopy%2Fpalma-de-mallorca-2900559_1920.jpg?alt=media&token=4e10500b-4ce4-43c5-a46a-0fcc1f1aafdd","Hello Word","sas");
-
+//ref.push().setValue(mdata);
     }
 
     private void getData() {
@@ -76,6 +76,7 @@ public class HomeFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 count = snapshot.getChildrenCount();
                 binding.IDHomeRecyclerview.removeAllViews();
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
@@ -87,6 +88,7 @@ public class HomeFragment extends Fragment {
                 binding.IDHomeRecyclerview.setAdapter(adapter);
                 binding.IDHomeRecyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+
             }
 
             @Override
@@ -95,19 +97,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        double i = Math.floor(Math.random() * count);
-        int value = (int) i;
-        ref.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private void checkProfile() {
