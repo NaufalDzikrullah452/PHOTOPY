@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/soft_grey"
     tools:context=".ui.loginfragment.signinfragment.SignInFragment">
 
 
@@ -91,8 +90,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ID_SignIn_EdtPassword" />
 
-        <ImageButton
-            android:id="@+id/btn_close_sign_in"
+        <ImageView
+            android:id="@+id/ID_SignIn_BtnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="246dp"
