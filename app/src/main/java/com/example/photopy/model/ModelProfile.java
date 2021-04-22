@@ -1,13 +1,16 @@
-package com.example.photopy.lib;
+package com.example.photopy.model;
 
 public class ModelProfile {
 
     private String AuthorUID;
     private String ImageAuthor;
+    private String authorName;
     public ModelProfile(){}
-    public ModelProfile(String authorUID, String imageAuthor) {
+
+    public ModelProfile(String authorUID, String imageAuthor, String authorName) {
         AuthorUID = authorUID;
         ImageAuthor = imageAuthor;
+        this.authorName = authorName;
     }
 
     public String getAuthorUID() {
@@ -26,4 +29,11 @@ public class ModelProfile {
         ImageAuthor = imageAuthor;
     }
 
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 }

@@ -48,10 +48,10 @@ public class SignInFragment extends GoogleSignInActivity {
             public void onClick(View v) {
                 String email = binding.IDSignInEdtEmail.getText().toString();
                 String password = binding.IDSignInEdtPassword.getText().toString();
-                if(email.equals("")||password.equals("")){
-                    Toast.makeText(requireContext(),"Isi Field",Toast.LENGTH_LONG).show();
+                if (email.equals("") || password.equals("")) {
+                    Toast.makeText(requireContext(), "Isi Field", Toast.LENGTH_LONG).show();
 
-                }else{
+                } else {
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -71,9 +71,14 @@ public class SignInFragment extends GoogleSignInActivity {
                                     }
                                 }
                             });
-
                 }
+            }
+        });
 
+        binding.IDSignInBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_loginFragment);
             }
         });
     }
