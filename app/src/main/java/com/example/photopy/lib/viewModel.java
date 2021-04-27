@@ -1,6 +1,7 @@
 package com.example.photopy.lib;
 
 import android.net.Uri;
+import android.view.View;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,10 +14,11 @@ import java.util.ArrayList;
 
 public class viewModel extends ViewModel {
 
-    private Repo repo;
+    private final Repo repo;
     private MutableLiveData<ArrayList<ModelPost>> mutableLiveData;
+    private MutableLiveData<ArrayList<ModelPost>> mutableLiveDataByUid;
     private MutableLiveData<ModelProfile> mutableLiveDataFirestore;
-    private String message,messageStorage;
+    private String messageStorage;
 
 
     public viewModel() {
@@ -39,11 +41,20 @@ public class viewModel extends ViewModel {
     }
 
 
-    public String addPhotoStorage(Uri uri,String authorIMG){
-        if (messageStorage ==null){
-            messageStorage = repo.addPhotoStorage(uri,authorIMG);
+    public void addPhotoStorage(Uri uri,String authorIMG){
+        repo.addPhotoStorage(uri,authorIMG);
+    }
+
+    public LiveData<ArrayList<ModelPost>> getDataByUid() {
+
+        if(mutableLiveDataByUid==null){
+            mutableLiveDataByUid = repo.getDataByUid();
         }
-        return messageStorage;
+        return mutableLiveDataByUid;
+    }
+
+    public void downloadImage(String url, View view){
+        repo.downloadImage(url,view);
     }
 
 }

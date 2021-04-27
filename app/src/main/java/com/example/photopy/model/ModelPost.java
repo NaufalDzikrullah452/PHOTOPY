@@ -12,9 +12,9 @@ public class ModelPost {
     private String authorNAME;
     private String authorIMG;
     private String imageURL;
-    private String like;
+    private int like;
 
-    public ModelPost(String authorUID, String authorNAME, String authorIMG, String imageURL, String like) {
+    public ModelPost(String authorUID, String authorNAME, String authorIMG, String imageURL, Integer like) {
         this.authorUID = authorUID;
         this.authorNAME = authorNAME;
         this.authorIMG = authorIMG;
@@ -54,11 +54,11 @@ public class ModelPost {
         this.imageURL = imageURL;
     }
 
-    public String getLike() {
+    public Integer getLike() {
         return like;
     }
 
-    public void setLike(String like) {
+    public void setLike(Integer like) {
         this.like = like;
     }
 }

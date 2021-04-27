@@ -80,39 +80,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ID_Login_BtnSign_Email" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/ID_Login_BtnSign"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_btn"
+        app:cornerRadius="20dp"
         android:drawableLeft="@drawable/ic_google"
         android:fontFamily="@font/poppins_reguler"
         android:padding="10dp"
         android:text="Sign in with Google Account"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/colorBackground"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/ID_Login_BtnSign_Email"
+        android:backgroundTint="@color/design_default_color_secondary_variant"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_btn2"
         android:drawableLeft="@drawable/ic_email"
         android:fontFamily="@font/poppins_reguler"
         android:padding="10dp"
         android:text="Sign in with Email"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/colorBackground"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
