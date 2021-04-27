@@ -32,7 +32,7 @@ private FragmentProfileBinding binding;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.IDProfilBtnLogut.setOnClickListener(new View.OnClickListener() {
+        binding.IDProfilBtnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
