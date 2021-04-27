@@ -14,11 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.photopy.R;
 import com.example.photopy.databinding.FragmentSignUpBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
+import org.jetbrains.annotations.NotNull;
 
 
 public class SignUpFragment extends Fragment {
@@ -27,12 +25,11 @@ public class SignUpFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(getLayoutInflater(), container, false);
-        View view = binding.getRoot();
-        return view;
+        return binding.getRoot();
     }
 
 
@@ -40,43 +37,32 @@ public class SignUpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        binding.IDSignUpBtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_signUpFragment_to_loginFragment);
-            }
-        });
-        binding.IDSignUpBtnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = binding.IDSignUpEdtUsername.getText().toString();
-                String email = binding.IDSignUpEdtEmail.getText().toString();
-                String password = binding.IDSignUpEdtPassword.getText().toString();
-                if(username.equals("")||email.equals("")||password.equals("")){
-                    Toast.makeText(requireContext(),"Isi Field",Toast.LENGTH_LONG).show();
-                }else {
+        binding.IDSignUpBtnBack.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_signUpFragment_to_loginFragment));
+        binding.IDSignUpBtnSignUp.setOnClickListener(v -> {
+            String username = binding.IDSignUpEdtUsername.getText().toString();
+            String email = binding.IDSignUpEdtEmail.getText().toString();
+            String password = binding.IDSignUpEdtPassword.getText().toString();
+            if(username.equals("")||email.equals("")||password.equals("")){
+                Toast.makeText(requireContext(),"Isi Field",Toast.LENGTH_LONG).show();
+            }else {
 
-                    Log.d("SignUp",username+email+password);
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d("SignUp", "createUserWithEmail:success");
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        Navigation.findNavController(v).navigate(R.id.action_signUpFragment_to_loginFragment);
+                Log.d("SignUp",username+email+password);
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(requireActivity(), task -> {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("SignUp", "createUserWithEmail:success");
+//                                FirebaseUser user = mAuth.getCurrentUser();
+                                Navigation.findNavController(v).navigate(R.id.action_signUpFragment_to_loginFragment);
 
 //                            updateUI(user);
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w("SignUp", "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(requireContext(), "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("SignUp", "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(requireContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
     }
