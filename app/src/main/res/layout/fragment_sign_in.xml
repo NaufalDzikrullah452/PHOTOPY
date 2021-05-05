@@ -45,6 +45,7 @@
             android:ems="10"
             android:fontFamily="@font/lato_bold"
             android:hint="Email"
+            android:textColor="@color/black"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textColorHint="@color/grey"
@@ -73,14 +74,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ID_SignIn_EdtEmail" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ID_SignIn_BtnSignIn"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="60dp"
+            android:padding="10dp"
+            app:cornerRadius="10dp"
+            android:backgroundTint="@color/blue"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/rounded_btn_form"
             android:fontFamily="@font/poppins_semibold"
             android:text="Sign In"
             android:textAllCaps="false"

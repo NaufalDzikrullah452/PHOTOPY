@@ -1,25 +1,36 @@
 package com.example.photopy.ui.profilefragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.photopy.R;
 import com.example.photopy.databinding.FragmentProfileBinding;
 import com.example.photopy.lib.GoogleSignInActivity;
+import com.example.photopy.lib.viewModel;
+import com.example.photopy.model.ModelCollection;
+import com.example.photopy.model.ModelPost;
+import com.example.photopy.model.ModelProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class ProfileFragment extends GoogleSignInActivity {
-private FragmentProfileBinding binding;
+    private FragmentProfileBinding binding;
+    private final viewModel viewModel = new viewModel();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,11 +45,37 @@ private FragmentProfileBinding binding;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(requireContext(), "YouClicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        viewModel.getProfile().observe(requireActivity(), new Observer<ModelProfile>() {
+            @Override
+            public void onChanged(ModelProfile modelProfile) {
+                Picasso.get().load(modelProfile.getImageAuthor()).placeholder(R.drawable.blur).into(binding.profilePic);
+                binding.IDProfilAuthorName.setText(modelProfile.getAuthorName());
+            }
+        });
+        viewModel.getDataCollectionByID().observe(requireActivity(), new Observer<ArrayList<ModelCollection>>() {
+            @Override
+            public void onChanged(ArrayList<ModelCollection> modelCollections) {
+                binding.totalCollection.setText(String.valueOf(modelCollections.size()));
+            }
+        });
+        viewModel.getDataByUid().observe(requireActivity(), new Observer<ArrayList<ModelPost>>() {
+            @Override
+            public void onChanged(ArrayList<ModelPost> modelPosts) {
+                int total = modelPosts.size();
+                binding.totalPhotos.setText(String.valueOf(total));
+            }
+        });
         binding.IDProfilBtnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_loginFragment);
+                Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_profileSettingFragment);
             }
         });
     }

@@ -5,14 +5,12 @@
     android:id="@+id/z"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.profilefragment.setting.ProfileSettingFragment">
 
     <android.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +21,12 @@
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_right"
+            android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
             android:drawablePadding="10dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Settings"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="?android:attr/colorPrimary"
             android:textSize="26sp" />
     </android.widget.Toolbar>
 
@@ -49,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/ID_ProfilSetting_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -57,7 +55,7 @@
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Tomas Garcia"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/colorPrimary"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +71,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/ID_ProfilSetting_Name">
 
         <LinearLayout
             android:layout_width="380dp"
@@ -88,10 +86,11 @@
                 android:layout_marginRight="110dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Email"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/ID_Profile_Setting_Email"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
@@ -119,18 +118,18 @@
                 android:layout_marginRight="110dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Username"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/ID_Profile_setting_Username"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Tomas Garcia"
                 android:textColor="@color/grey"
-                android:textSize="16sp"
 
-                />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -152,7 +151,7 @@
                 android:layout_marginRight="110dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Short Bio"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
@@ -174,38 +173,40 @@
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        app:cornerRadius="10dp"
         android:id="@+id/ID_Btn_About_Settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_btn_settings"
+        android:backgroundTint="@color/design_default_color_secondary_variant"
         android:fontFamily="@font/poppins_semibold"
         android:text="About Privacy"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/ID_Btn_Privacy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_btn_settings"
+        android:backgroundTint="?android:attr/colorBackground"
         android:fontFamily="@font/poppins_semibold"
         android:text="Terms, Privacy, Copyright"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/colorPrimary"
         android:textSize="16sp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ID_Btn_About_Settings" />
 

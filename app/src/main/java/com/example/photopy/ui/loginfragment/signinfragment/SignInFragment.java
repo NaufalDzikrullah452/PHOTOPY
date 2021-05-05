@@ -1,10 +1,13 @@
 package com.example.photopy.ui.loginfragment.signinfragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 import com.example.photopy.R;
 import com.example.photopy.databinding.FragmentSignInBinding;
 import com.example.photopy.lib.GoogleSignInActivity;
+import com.example.photopy.lib.viewModel;
+import com.example.photopy.model.ModelProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,7 +32,8 @@ public class SignInFragment extends GoogleSignInActivity {
 
     private FragmentSignInBinding binding;
     private FirebaseAuth mAuth;
-
+    private SharedPreferences sharedPreferences;
+    private final viewModel ViewModel = new viewModel();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +66,7 @@ public class SignInFragment extends GoogleSignInActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d("SignIn", "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
+                                        saveData();
                                         Navigation.findNavController(v).navigate(R.id.action_signInFragment_to_navigation_home);
 
 
@@ -82,4 +89,19 @@ public class SignInFragment extends GoogleSignInActivity {
             }
         });
     }
+    public void saveData(){
+        sharedPreferences = getContext().getSharedPreferences("Data_Login", Context.MODE_PRIVATE);
+        ViewModel.getProfile().observe(requireActivity(), new Observer<ModelProfile>() {
+            @Override
+            public void onChanged(ModelProfile modelProfile) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("authorName", modelProfile.getAuthorName());
+                editor.putString("authorUID", modelProfile.getAuthorUID());
+                editor.putString("imageAuthor", modelProfile.getImageAuthor());
+                editor.apply();
+            }
+        });
+
+    }
+
 }

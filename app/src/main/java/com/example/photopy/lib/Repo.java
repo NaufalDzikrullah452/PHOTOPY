@@ -2,6 +2,7 @@ package com.example.photopy.lib;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.photopy.model.ModelCollection;
 import com.example.photopy.model.ModelPost;
 import com.example.photopy.model.ModelProfile;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,9 +39,10 @@ public class Repo {
     private final FirebaseDatabase realtime = FirebaseDatabase.getInstance();
     private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private final DatabaseReference ref = realtime.getReference("PHOTOPY/Picture");
+    private final DatabaseReference refCollection = realtime.getReference("PHOTOPY/Collection");
     private final CollectionReference refFirestore = firestore.collection("Profile/");
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference("/PhotoPy/" + UUID.randomUUID().toString());
-
+    SharedPreferences sharedPreferences;
     public String uid, dataUri, authorIMG;
 
 
@@ -56,22 +59,24 @@ public class Repo {
     }
 
     //Menambah data ke storage dan mengirim data postingan
-    public String addPhotoStorage(Uri uri, String authorIMG) {
+    public String addPhotoStorage(Uri uri, String authorIMG,Context context) {
         storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                 Log.d("AddFragment", "Succesfull to upload image: " + taskSnapshot.getMetadata().getPath());
                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    String dataUriw;
 
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.d("AddFragment", "File Location " + uri);
                         dataUri = uri.toString();
+                        DatabaseReference tujuan = ref.push();
                         String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        ModelPost data = new ModelPost(currentUserUid, "Ismaillll", authorIMG, uri.toString(), 3);
-                        ref.push().setValue(data);
+                        sharedPreferences = context.getSharedPreferences("Data_Login", Context.MODE_PRIVATE);
+                        String authorName = sharedPreferences.getString("authorName", "");
+                        ModelPost data = new ModelPost(tujuan.getKey(), currentUserUid, authorName, authorIMG, uri.toString(), 0);
+                        tujuan.setValue(data);
 
                     }
 
@@ -87,6 +92,7 @@ public class Repo {
         return dataUri;
     }
 
+
     //Get data postingan real-time Database
     public MutableLiveData<ArrayList<ModelPost>> requestDataPost() {
         final MutableLiveData<ArrayList<ModelPost>> mutableLiveData = new MutableLiveData<>();
@@ -99,7 +105,7 @@ public class Repo {
                 data.clear();
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     ModelPost post = itemSnapshot.getValue(ModelPost.class);
-                    data.add(new ModelPost(post.getAuthorUID(), post.getAuthorNAME(), post.getAuthorIMG(), post.getImageURL(), post.getLike()));
+                    data.add(new ModelPost(post.getImageID(), post.getAuthorUID(), post.getAuthorNAME(), post.getAuthorIMG(), post.getImageURL(), post.getLike()));
                 }
                 mutableLiveData.setValue(data);
             }
@@ -134,16 +140,16 @@ public class Repo {
 
     //Get Post By Uid
     public MutableLiveData<ArrayList<ModelPost>> getDataByUid() {
-        Log.d("Data Uid", "Gasss");
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final MutableLiveData<ArrayList<ModelPost>> mutableLiveData = new MutableLiveData<>();
-        ref.orderByChild("authorUID").equalTo("iX9xlpDc3ghFT3La1tSYjWU5Vgi1").addValueEventListener(new ValueEventListener() {
+        ref.orderByChild("authorUID").equalTo(currentUserUid).addValueEventListener(new ValueEventListener() {
             final ArrayList data = new ArrayList<ModelPost>();
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     ModelPost post = itemSnapshot.getValue(ModelPost.class);
-                    data.add(new ModelPost(post.getAuthorUID(), post.getAuthorNAME(), post.getAuthorIMG(), post.getImageURL(), post.getLike()));
+                    data.add(new ModelPost(ref.push().getKey(), post.getAuthorUID(), post.getAuthorNAME(), post.getAuthorIMG(), post.getImageURL(), post.getLike()));
 
                 }
                 mutableLiveData.setValue(data);
@@ -173,7 +179,7 @@ public class Repo {
         });
     }
 
-    public void downloadImage(String url, View view){
+    public void downloadImage(String url, View view) {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
         request.setTitle("Downloading");
@@ -184,5 +190,37 @@ public class Repo {
         request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "" + System.currentTimeMillis() + ".jpg");
         DownloadManager manager = (DownloadManager) view.getContext().getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
+    }
+
+    public void addCollection(String imgUri,String imageID) {
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference repoPush = refCollection.child(currentUserUid).child(imageID);
+
+        ModelCollection modelCollection = new ModelCollection(repoPush.getKey(), currentUserUid, imgUri);
+        repoPush.setValue(modelCollection);
+    }
+
+    public MutableLiveData<ArrayList<ModelCollection>> getDataCollection() {
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final MutableLiveData<ArrayList<ModelCollection>> mutableLiveData = new MutableLiveData<>();
+        refCollection.child(currentUserUid).orderByChild("collectionAuthorUid").equalTo(currentUserUid).addValueEventListener(new ValueEventListener() {
+            final ArrayList data = new ArrayList<ModelCollection>();
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    ModelCollection post = itemSnapshot.getValue(ModelCollection.class);
+                    data.add(post);
+                }
+                mutableLiveData.setValue(data);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return mutableLiveData;
     }
 }

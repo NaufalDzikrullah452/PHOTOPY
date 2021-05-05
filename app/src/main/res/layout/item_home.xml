@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ID_Home_ImagePostingan">
 
         <ImageView
-            android:id="@+id/ID_Home_Love"
+            android:id="@+id/ID_Item_BtnLove"
             android:layout_width="wrap_content"
             android:src="@drawable/ic_baseline_favorite_border_24"
             android:layout_height="wrap_content"
@@ -83,6 +83,7 @@
     app:layout_constraintStart_toEndOf="@+id/imageView4"
     app:layout_constraintTop_toBottomOf="@+id/ID_Home_ImagePostingan" >
     <ImageView
+        android:id="@+id/ID_Item_BtnCollection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
