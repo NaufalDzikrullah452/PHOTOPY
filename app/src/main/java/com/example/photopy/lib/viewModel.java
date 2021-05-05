@@ -1,5 +1,6 @@
 package com.example.photopy.lib;
 
+import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 
@@ -7,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.photopy.model.ModelCollection;
 import com.example.photopy.model.ModelPost;
 import com.example.photopy.model.ModelProfile;
 
@@ -18,8 +20,7 @@ public class viewModel extends ViewModel {
     private MutableLiveData<ArrayList<ModelPost>> mutableLiveData;
     private MutableLiveData<ArrayList<ModelPost>> mutableLiveDataByUid;
     private MutableLiveData<ModelProfile> mutableLiveDataFirestore;
-    private String messageStorage;
-
+    private MutableLiveData<ArrayList<ModelCollection>> mutableLiveDataCollection;
 
     public viewModel() {
         repo = new Repo();
@@ -41,8 +42,8 @@ public class viewModel extends ViewModel {
     }
 
 
-    public void addPhotoStorage(Uri uri,String authorIMG){
-        repo.addPhotoStorage(uri,authorIMG);
+    public void addPhotoStorage(Uri uri, String authorIMG, Context context){
+        repo.addPhotoStorage(uri,authorIMG,context);
     }
 
     public LiveData<ArrayList<ModelPost>> getDataByUid() {
@@ -55,6 +56,17 @@ public class viewModel extends ViewModel {
 
     public void downloadImage(String url, View view){
         repo.downloadImage(url,view);
+    }
+
+    public void addCollection(String url,String imageID){
+        repo.addCollection(url,imageID);
+    }
+    public LiveData<ArrayList<ModelCollection>> getDataCollectionByID() {
+
+        if(mutableLiveDataCollection==null){
+            mutableLiveDataCollection = repo.getDataCollection();
+        }
+        return mutableLiveDataCollection;
     }
 
 }

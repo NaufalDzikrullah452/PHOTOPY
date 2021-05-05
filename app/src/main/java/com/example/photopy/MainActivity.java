@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
            switch (destination.getId()){
                case R.id.loginFragment: binding.coordinatorLayout.setVisibility(View.GONE); break;
-               case R.id.navigation_home:
-               case R.id.navigation_profile:
-               case R.id.navigation_add:
-                   binding.coordinatorLayout.setVisibility(View.VISIBLE); break;
+               case R.id.navigation_home: binding.coordinatorLayout.setVisibility(View.VISIBLE); break;
+               case R.id.navigation_profile:binding.coordinatorLayout.setVisibility(View.VISIBLE); break;
+               case R.id.navigation_add:binding.coordinatorLayout.setVisibility(View.VISIBLE); break;
+               case R.id.profileSettingFragment: binding.coordinatorLayout.setVisibility(View.GONE); break;
+
 
            }
         });
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             viewModel.getProfile().observe(this, modelProfile -> {
                 if (modelProfile.getAuthorUID()!=null) {
                     Log.d("HomeFragment", "Firestore IMG " + modelProfile.getImageAuthor());
-                    viewModel.addPhotoStorage(data.getData(),modelProfile.getImageAuthor());
+                    viewModel.addPhotoStorage(data.getData(),modelProfile.getImageAuthor(),this);
                 }
             });
         }

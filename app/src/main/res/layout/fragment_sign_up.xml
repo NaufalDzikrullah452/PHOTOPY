@@ -72,16 +72,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ID_SignUp_EdtEmail" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ID_SignUp_BtnSignUp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/rounded_btn_form"
             android:fontFamily="@font/poppins_semibold"
             android:text="Sign Up"
+            android:backgroundTint="@color/blue"
+            app:cornerRadius="10dp"
+            android:padding="10dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp"
