@@ -1,7 +1,9 @@
 package com.example.photopy.ui.loginfragment;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -10,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +46,7 @@ private SharedPreferences sharedPreferences;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        addData();
+
         checkLogin(view);
         binding.IDLoginBtnSignEmail.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signInFragment));
         binding.tvSignUp.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signUpFragment));
@@ -51,7 +55,6 @@ private SharedPreferences sharedPreferences;
     private void checkLogin(View view) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            saveData();
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_navigation_home);
         }
     }
@@ -71,8 +74,7 @@ private SharedPreferences sharedPreferences;
         });
 
     }
-    public void addData() {
-        DatabaseReference ref = database.getReference("PHOTOPY/saving-data");
-        ref.setValue("Haloo");
-    }
+
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.photopy.ui.profilefragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,16 +52,23 @@ public class ProfileFragment extends GoogleSignInActivity {
         binding.profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(requireContext(), "YouClicked", Toast.LENGTH_SHORT).show();
+                Intent intentHead = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(intentHead, 101);
+
+
             }
         });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        binding.IDProfilAuthorName.setText(user.getDisplayName());
+
         viewModel.getProfile().observe(requireActivity(), new Observer<ModelProfile>() {
             @Override
             public void onChanged(ModelProfile modelProfile) {
                 Picasso.get().load(modelProfile.getImageAuthor()).placeholder(R.drawable.blur).into(binding.profilePic);
-                binding.IDProfilAuthorName.setText(modelProfile.getAuthorName());
             }
         });
+
         viewModel.getDataCollectionByID().observe(requireActivity(), new Observer<ArrayList<ModelCollection>>() {
             @Override
             public void onChanged(ArrayList<ModelCollection> modelCollections) {
@@ -78,5 +88,12 @@ public class ProfileFragment extends GoogleSignInActivity {
                 Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_profileSettingFragment);
             }
         });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 101) && (resultCode == Activity.RESULT_OK) && data != null) {
+            viewModel.setImage(data.getData().toString());
+        }
     }
 }

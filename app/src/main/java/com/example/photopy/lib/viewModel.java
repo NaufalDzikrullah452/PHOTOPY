@@ -40,7 +40,12 @@ public class viewModel extends ViewModel {
         }
         return mutableLiveDataFirestore;
     }
-
+    public void setProfile(String name) {
+       repo.uploadName(name);
+        }
+    public void setImage(String name) {
+        repo.uploadimage(name);
+    }
 
     public void addPhotoStorage(Uri uri, String authorIMG, Context context){
         repo.addPhotoStorage(uri,authorIMG,context);

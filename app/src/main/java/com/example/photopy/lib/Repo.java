@@ -13,9 +13,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.photopy.model.ModelCollection;
 import com.example.photopy.model.ModelPost;
 import com.example.photopy.model.ModelProfile;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,21 +46,8 @@ public class Repo {
     private final DatabaseReference refCollection = realtime.getReference("PHOTOPY/Collection");
     private final CollectionReference refFirestore = firestore.collection("Profile/");
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference("/PhotoPy/" + UUID.randomUUID().toString());
-    SharedPreferences sharedPreferences;
     public String uid, dataUri, authorIMG;
 
-
-    public void init(String dataUid) {
-        Repo repo = new Repo();
-        repo.uid = dataUid;
-    }
-
-    public String addPhotoPostRealtime(ModelPost modelPost) {
-        final MutableLiveData<ModelPost> mutableLiveData = new MutableLiveData<>();
-
-        ref.push().setValue(modelPost);
-        return "Succes add";
-    }
 
     //Menambah data ke storage dan mengirim data postingan
     public String addPhotoStorage(Uri uri, String authorIMG,Context context) {
@@ -72,12 +63,9 @@ public class Repo {
                         Log.d("AddFragment", "File Location " + uri);
                         dataUri = uri.toString();
                         DatabaseReference tujuan = ref.push();
-                        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        sharedPreferences = context.getSharedPreferences("Data_Login", Context.MODE_PRIVATE);
-                        String authorName = sharedPreferences.getString("authorName", "");
-                        ModelPost data = new ModelPost(tujuan.getKey(), currentUserUid, authorName, authorIMG, uri.toString(), 0);
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        ModelPost data = new ModelPost(tujuan.getKey(), user.getUid(), user.getDisplayName(), authorIMG, uri.toString(), 0);
                         tujuan.setValue(data);
-
                     }
 
                 }).addOnFailureListener(e -> Log.d("AddFragment", e.toString()));
@@ -136,6 +124,57 @@ public class Repo {
         });
 
         return mutableLiveData;
+    }
+
+    public void uploadName(String nama){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(nama)
+                .build();
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Repo", "User profile updated.");
+                        }
+                    }
+                });
+
+    }
+
+    public void uploadimage(String image){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        storageReference.putFile(Uri.parse(image)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        ModelProfile profil = new ModelProfile(user.getUid(), uri.toString(), user.getDisplayName());
+                        CollectionReference dbCourses = firestore.collection("Profile/");
+                            Log.d("Repo","Uplaod = "+profil.getAuthorUID()+profil.getImageAuthor()+profil.getAuthorName());
+                       dbCourses.document(user.getUid()).set(profil);
+                    }
+                });
+            }
+        });
+
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(Uri.parse(image))
+                .build();
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Repo", "User profile updated.");
+                        }
+                    }
+                });
+
     }
 
     //Get Post By Uid
