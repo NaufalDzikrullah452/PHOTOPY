@@ -20,14 +20,19 @@ import com.example.photopy.databinding.FragmentSignUpBinding;
 import com.example.photopy.lib.viewModel;
 import com.example.photopy.model.ModelProfile;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 
 public class SignUpFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FragmentSignUpBinding binding;
     private SharedPreferences sharedPreferences;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final viewModel ViewModel = new viewModel();
 
     @Override
@@ -59,10 +64,11 @@ public class SignUpFragment extends Fragment {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("SignUp", "createUserWithEmail:success");
 //                                FirebaseUser user = mAuth.getCurrentUser();
-                                saveData();
+                                saveData(username);
+                                ViewModel.setProfile(username);
                                 Navigation.findNavController(v).navigate(R.id.action_signUpFragment_to_loginFragment);
 
-//                            updateUI(user);
+//
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("SignUp", "createUserWithEmail:failure", task.getException());
@@ -73,18 +79,12 @@ public class SignUpFragment extends Fragment {
             }
         });
     }
-    public void saveData(){
-        sharedPreferences = getContext().getSharedPreferences("Data_Login", Context.MODE_PRIVATE);
-        ViewModel.getProfile().observe(requireActivity(), new Observer<ModelProfile>() {
-            @Override
-            public void onChanged(ModelProfile modelProfile) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("authorName", modelProfile.getAuthorName());
-                editor.putString("authorUID", modelProfile.getAuthorUID());
-                editor.putString("imageAuthor", modelProfile.getImageAuthor());
-                editor.apply();
-            }
-        });
+    public void saveData(String username){
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        CollectionReference dbCourses = db.collection("Profile/");
+        ModelProfile profil = new ModelProfile(uid, null, username);
+        dbCourses.document(uid).set(profil);
+
 
     }
 }

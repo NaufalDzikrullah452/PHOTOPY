@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_profileSettingFragment"
             app:destination="@id/profileSettingFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_collectionFragment"
+            app:destination="@id/collectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -93,4 +96,9 @@
             android:id="@+id/action_profileSettingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.example.photopy.ui.collection.CollectionFragment"
+        android:label="fragment_collection"
+        tools:layout="@layout/fragment_collection" />
 </navigation>

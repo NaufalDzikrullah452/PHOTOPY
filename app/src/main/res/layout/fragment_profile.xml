@@ -23,10 +23,9 @@
         android:id="@+id/ID_Profil_Author_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Tomas Garcia"
+        android:text="Nama User"
         android:textColor="?android:attr/colorPrimary"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +37,7 @@
         android:layout_width="113dp"
         android:layout_height="76dp"
         app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/cardView2"
+        app:layout_constraintEnd_toStartOf="@+id/ID_Profile_CardCollection"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ID_Profil_Author_Name">
@@ -87,7 +86,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/ID_Profile_CardCollection"
         android:layout_width="113dp"
         android:layout_height="76dp"
         app:cardCornerRadius="8dp"
@@ -144,7 +143,7 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cardView2"
+        app:layout_constraintStart_toEndOf="@+id/ID_Profile_CardCollection"
         app:layout_constraintTop_toBottomOf="@+id/ID_Profil_Author_Name">
 
         <androidx.constraintlayout.widget.ConstraintLayout

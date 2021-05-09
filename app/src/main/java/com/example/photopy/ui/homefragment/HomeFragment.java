@@ -45,7 +45,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.simmerView.startShimmer();
@@ -60,8 +59,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sharedPreferences = getContext().getSharedPreferences("Data_Login", Context.MODE_PRIVATE);
-        Toast.makeText(requireContext(), "Welome " + sharedPreferences.getString("authorName", ""), Toast.LENGTH_SHORT).show();
+
         try {
 
             ViewModel.getDataPost().observe(requireActivity(), modelPosts -> {
@@ -73,26 +71,10 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
                 binding.IDHomeContainerSimmer.setVisibility(View.GONE);
             });
 
-
         } catch (Exception e) {
             Log.d("HomeFragment", e.toString());
         }
-        try {
-            ViewModel.getProfile().observe(requireActivity(), modelProfile -> {
 
-                if (modelProfile.getAuthorUID() != null) {
-                    Log.d("HomeFragment", "Firestore UID " + modelProfile.getAuthorUID());
-
-                } else {
-                    String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                    CollectionReference dbCourses = db.collection("Profile/");
-                    ModelProfile profil = new ModelProfile(uid, null, "Ismail");
-                    dbCourses.document(uid).set(profil);
-                }
-            });
-        } catch (Exception ignored) {
-
-        }
 
     }
 

@@ -20,6 +20,8 @@ import android.view.View;
 import com.example.photopy.databinding.ActivityMainBinding;
 import com.example.photopy.lib.viewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         if ((requestCode == 100) && (resultCode == Activity.RESULT_OK) && data != null) {
             viewModel.getProfile().observe(this, modelProfile -> {
                 if (modelProfile.getAuthorUID()!=null) {
-                    Log.d("HomeFragment", "Firestore IMG " + modelProfile.getImageAuthor());
+                    Log.d("MainActivity", "Firestore IMG " + modelProfile.getImageAuthor());
                     viewModel.addPhotoStorage(data.getData(),modelProfile.getImageAuthor(),this);
                 }
             });
