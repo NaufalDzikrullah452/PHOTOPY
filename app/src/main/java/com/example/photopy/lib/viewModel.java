@@ -66,6 +66,9 @@ public class viewModel extends ViewModel {
     public void addCollection(String url,String imageID){
         repo.addCollection(url,imageID);
     }
+    public void addLike(String imageID,String AuthorID){
+        repo.addlike(imageID,AuthorID);
+    }
     public LiveData<ArrayList<ModelCollection>> getDataCollectionByID() {
 
         if(mutableLiveDataCollection==null){
