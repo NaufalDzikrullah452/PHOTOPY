@@ -27,6 +27,10 @@ import com.example.photopy.model.ModelPost;
 import com.example.photopy.model.ModelProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,7 +38,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends GoogleSignInActivity {
     private FragmentProfileBinding binding;
     private final viewModel viewModel = new viewModel();
-
+    int totalLike =0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,6 +96,21 @@ public class ProfileFragment extends GoogleSignInActivity {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_profileSettingFragment);
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference().child("PHOTOPY").child("Like").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    totalLike = totalLike+1;
+                }
+                binding.totalLikes.setText(String.valueOf(totalLike));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

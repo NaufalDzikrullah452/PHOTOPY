@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.photopy.model.ModelCollection;
+import com.example.photopy.model.ModelLike;
 import com.example.photopy.model.ModelPost;
 import com.example.photopy.model.ModelProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,6 +45,8 @@ public class Repo {
     private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private final DatabaseReference ref = realtime.getReference("PHOTOPY/Picture");
     private final DatabaseReference refCollection = realtime.getReference("PHOTOPY/Collection");
+    private final DatabaseReference refLike = realtime.getReference("PHOTOPY/Like");
+
     private final CollectionReference refFirestore = firestore.collection("Profile/");
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference("/PhotoPy/" + UUID.randomUUID().toString());
     public String uid, dataUri, authorIMG;
@@ -237,6 +240,13 @@ public class Repo {
 
         ModelCollection modelCollection = new ModelCollection(repoPush.getKey(), currentUserUid, imgUri);
         repoPush.setValue(modelCollection);
+    }
+    public void addlike(String imageID,String AuthorID) {
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference repoPush = refLike.child(AuthorID).child(currentUserUid+imageID);
+
+        ModelLike modelLike = new ModelLike(repoPush.getKey(), currentUserUid);
+        repoPush.setValue(modelLike);
     }
 
     public MutableLiveData<ArrayList<ModelCollection>> getDataCollection() {

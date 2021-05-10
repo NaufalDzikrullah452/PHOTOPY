@@ -132,7 +132,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
     }
 
     @Override
-    public void onLoveClick(int position, String uri, String ImgId) {
+    public void onLoveClick(int position, String authorID, String ImgId) {
         Toast.makeText(requireContext(), "Cobaa", Toast.LENGTH_SHORT).show();
+        ViewModel.addLike(ImgId,authorID);
     }
 }
