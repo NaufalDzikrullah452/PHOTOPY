@@ -18,10 +18,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/ID_Home_Popup_Collection_CardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="264dp"
+        android:layout_height="240dp"
         android:layout_margin="80dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,9 +29,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_height="match_parent">
+            android:paddingEnd="20dp">
 
             <ImageView
                 android:id="@+id/ID_Home_Popup_BtnBack"
@@ -42,31 +42,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/design_default_color_secondary"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/rounded_btn_form"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="Create New Collection"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ID_ProfilSetting_Name" />
-
+                app:layout_constraintTop_toBottomOf="@+id/ID_ProfilSetting_Name"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/ID_ProfilSetting_Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Save to Collection"
-                android:textColor="#000000"
-                android:textStyle="bold"
+                android:layout_marginTop="88dp"
+                android:fontFamily="@font/poppins_reguler"
+                android:text="Save to Collection !!"
+                android:textColor="@color/grey"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
