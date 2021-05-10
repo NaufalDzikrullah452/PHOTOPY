@@ -59,6 +59,9 @@ private FragmentProfileSettingBinding binding;
                 Navigation.findNavController(v).navigate(R.id.action_profileSettingFragment_to_loginFragment);
             }
         });
+        binding.IDBtnAboutSettings.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_profileSettingFragment_to_aboutPrivacyFragment));
+        binding.IDBtnPrivacy.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_profileSettingFragment_to_termFragment));
+
     }
 
 }
