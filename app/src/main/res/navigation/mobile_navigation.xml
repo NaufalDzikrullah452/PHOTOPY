@@ -95,10 +95,26 @@
         <action
             android:id="@+id/action_profileSettingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileSettingFragment_to_aboutPrivacyFragment"
+            app:destination="@id/aboutPrivacyFragment" />
+        <action
+            android:id="@+id/action_profileSettingFragment_to_termFragment"
+            app:destination="@id/termFragment" />
     </fragment>
     <fragment
         android:id="@+id/collectionFragment"
         android:name="com.example.photopy.ui.collection.CollectionFragment"
         android:label="fragment_collection"
         tools:layout="@layout/fragment_collection" />
+    <fragment
+        android:id="@+id/aboutPrivacyFragment"
+        android:name="com.example.photopy.ui.profilefragment.setting.AboutPrivacyFragment"
+        android:label="fragment_about_privacy"
+        tools:layout="@layout/fragment_about_privacy" />
+    <fragment
+        android:id="@+id/termFragment"
+        android:name="com.example.photopy.ui.profilefragment.setting.TermFragment"
+        android:label="fragment_term"
+        tools:layout="@layout/fragment_term" />
 </navigation>

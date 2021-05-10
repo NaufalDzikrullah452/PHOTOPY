@@ -158,7 +158,7 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text=" "
+                android:text="Haalloo Everbody"
                 android:textColor="@color/grey"
                 android:textSize="16sp"
 
