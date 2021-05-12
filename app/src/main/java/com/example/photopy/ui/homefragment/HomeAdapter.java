@@ -80,6 +80,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     mOnClickListener.onCollectionClick(positions, data.get(positions).getImageURL(),data.get(positions).getImageID());
                 case R.id.ID_Item_BtnLove:
                     int positionss = getAdapterPosition();
+                    binding.IDItemBtnLove.setImageResource(R.drawable.ic_baseline_favorite_24);
                     mOnClickListener.onLoveClick(positionss, data.get(positionss).getAuthorUID(),data.get(positionss).getImageID());
             }
 

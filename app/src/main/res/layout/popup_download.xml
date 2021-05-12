@@ -44,10 +44,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/ID_Home_Popup_BtnDownload"
                 android:layout_width="208dp"
-                android:layout_height="37dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_btn_form"
+                app:cornerRadius="13dp"
+                android:backgroundTint="@color/blue"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Download"
                 android:textAllCaps="false"

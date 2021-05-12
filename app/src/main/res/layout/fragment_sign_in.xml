@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/soft_grey"
     tools:context=".ui.loginfragment.signinfragment.SignInFragment">
 
 
@@ -81,8 +82,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="60dp"
             android:padding="10dp"
-            app:cornerRadius="10dp"
-            android:background="@drawable/rounded_btn_form"
+            app:cornerRadius="13dp"
+            android:backgroundTint="@color/blue"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Sign In"

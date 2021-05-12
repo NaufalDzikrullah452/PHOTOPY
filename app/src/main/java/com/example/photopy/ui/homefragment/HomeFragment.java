@@ -85,6 +85,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
         binding.IDHomePopup.IDHomeContainerPopup.setVisibility(View.VISIBLE);
         binding.IDHomePopup.IDHomePopupLinear.setVisibility(View.VISIBLE);
         binding.IDHomePopup.IDHomePopupCardView.setAlpha(1);
+        binding.IDHomePopup.IDHomePopupBtnDownload.setText("Download");
+        binding.IDHomePopup.IDHomePopupText.setText("Download Photo");
         binding.IDHomePopup.IDHomePopupCardView.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.from_small));
         ImageView target = binding.IDHomePopup.IDHomePopupImageView;
         Picasso.get().load(uri).resize(300, 300).centerCrop().placeholder(R.drawable.blur).into(target);
@@ -111,6 +113,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
         binding.IDHomePopup.IDHomePopupLinear.setVisibility(View.VISIBLE);
         binding.IDHomePopup.IDHomePopupCardView.setAlpha(1);
         binding.IDHomePopup.IDHomePopupBtnDownload.setText("Save Collection");
+        binding.IDHomePopup.IDHomePopupText.setText("Add Collection Photo");
         binding.IDHomePopup.IDHomePopupCardView.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.from_small));
         ImageView target = binding.IDHomePopup.IDHomePopupImageView;
         Picasso.get().load(uri).resize(300, 300).centerCrop().placeholder(R.drawable.blur).into(target);
@@ -133,7 +136,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
 
     @Override
     public void onLoveClick(int position, String authorID, String ImgId) {
-        Toast.makeText(requireContext(), "Cobaa", Toast.LENGTH_SHORT).show();
         ViewModel.addLike(ImgId,authorID);
     }
 }

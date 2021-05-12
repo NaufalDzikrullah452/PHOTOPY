@@ -87,11 +87,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_btn"
+        android:backgroundTint="@color/blue"
         android:drawableLeft="@drawable/ic_google"
         android:fontFamily="@font/poppins_reguler"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        app:cornerRadius="20dp"
         android:text="Sign in with Google Account"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -102,7 +103,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/ID_Login_BtnSign_Email"
-        android:background="@drawable/rounded_btn2"
+        android:backgroundTint="@color/white"
+        app:cornerRadius="20dp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

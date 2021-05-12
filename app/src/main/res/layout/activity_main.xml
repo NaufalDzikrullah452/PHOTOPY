@@ -56,7 +56,11 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_add_circle_outline_24"
+            android:src="@drawable/ic_baseline_add"
+            app:backgroundTint="@color/black"
+            app:tint="@color/white"
+            app:fabSize="normal"
+            app:maxImageSize="30dp"
             app:layout_anchor="@id/bottomAppBar" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

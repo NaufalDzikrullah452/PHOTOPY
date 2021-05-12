@@ -52,7 +52,7 @@ public class ProfileFragment extends GoogleSignInActivity {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.IDProfileCardCollection.setOnClickListener(new View.OnClickListener() {
+        binding.cardView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_navigation_profile_to_collectionFragment);
