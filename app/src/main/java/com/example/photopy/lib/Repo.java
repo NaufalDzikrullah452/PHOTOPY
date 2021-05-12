@@ -46,7 +46,6 @@ public class Repo {
     private final DatabaseReference ref = realtime.getReference("PHOTOPY/Picture");
     private final DatabaseReference refCollection = realtime.getReference("PHOTOPY/Collection");
     private final DatabaseReference refLike = realtime.getReference("PHOTOPY/Like");
-
     private final CollectionReference refFirestore = firestore.collection("Profile/");
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference("/PhotoPy/" + UUID.randomUUID().toString());
     public String uid, dataUri, authorIMG;
