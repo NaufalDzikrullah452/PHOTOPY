@@ -21,19 +21,19 @@
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
+            android:drawableLeft="@drawable/ic_left"
             android:drawablePadding="10dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Settings"
             android:textAllCaps="false"
-            android:textColor="?android:attr/colorPrimary"
+            android:textColor="@color/black"
             android:textSize="26sp" />
     </android.widget.Toolbar>
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/profile_pic"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="32dp"
         android:src="@drawable/profpic"
@@ -55,7 +55,7 @@
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Tomas Garcia"
-        android:textColor="?android:attr/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,7 @@
                 android:layout_marginRight="110dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Email"
-                android:textColor="?android:attr/colorPrimary"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -118,7 +118,7 @@
                 android:layout_marginRight="110dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Username"
-                android:textColor="?android:attr/colorPrimary"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:layout_marginRight="110dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Short Bio"
-                android:textColor="?android:attr/colorPrimary"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -174,19 +174,19 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        app:cornerRadius="10dp"
         android:id="@+id/ID_Btn_About_Settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/design_default_color_secondary_variant"
+        android:background="@drawable/rounded_btn_settings"
         android:fontFamily="@font/poppins_semibold"
-        android:text="About Privacy"
+        android:text="About Us"
         android:textAllCaps="false"
-        android:textColor="?android:attr/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="16sp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -198,11 +198,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="?android:attr/colorBackground"
+        android:background="@drawable/rounded_btn_settings"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Terms, Privacy, Copyright"
+        android:text="Copyright"
         android:textAllCaps="false"
-        android:textColor="?android:attr/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"

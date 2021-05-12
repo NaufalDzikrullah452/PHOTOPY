@@ -82,7 +82,7 @@
             android:layout_marginTop="60dp"
             android:padding="10dp"
             app:cornerRadius="10dp"
-            android:backgroundTint="@color/blue"
+            android:background="@drawable/rounded_btn_form"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Sign In"

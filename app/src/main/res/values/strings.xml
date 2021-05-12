@@ -4,4 +4,21 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+<!--About Us Page-->
+    <string name="bio_ismail">Lorem ipsum dolor sir amet  bla bla bla....</string>
+    <string name="bio_dzik">21 yo. man who live in Malang City for studying and works, might be have a good sense of design, but bad sense of humor,
+        always curios about how nature works. Majoring in Computer Science at some State University, kinda like psychological things, and adrenalin stuff.</string>
+<!--Copyright Page-->
+
+    <string name="content_allowed">
+    All photos on Photopy are free to use, attribution is not required. Giving credit to the photographer or Photopy is not necessary but always appreciated,
+    and You can modify the photos Photopy. Be creative and edit them as you like.
+    </string>
+    <string name="content_not_allowed">
+    Identifiable people may not appear in a bad light or in a way that is offensive,
+    Don\'t sell unaltered copies of a photo or video, e.g. as a poster, print or on a physical product without modifying it first.
+    Don't imply endorsement of your product by people or brands on the imagery.
+    </string>
+    <string name="content_copyright">All photos on Photopy can be downloaded and used for free.</string>
 </resources>
