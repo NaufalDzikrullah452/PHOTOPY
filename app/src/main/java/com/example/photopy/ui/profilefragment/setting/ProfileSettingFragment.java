@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 
 
 public class ProfileSettingFragment extends Fragment {
-private FragmentProfileSettingBinding binding;
+    private FragmentProfileSettingBinding binding;
     private SharedPreferences sharedPreferences;
     private final viewModel viewModel = new viewModel();
 
@@ -61,7 +61,5 @@ private FragmentProfileSettingBinding binding;
         });
         binding.IDBtnAboutSettings.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_profileSettingFragment_to_aboutPrivacyFragment));
         binding.IDBtnPrivacy.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_profileSettingFragment_to_termFragment));
-
     }
-
 }

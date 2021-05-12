@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
     private FragmentHomeBinding binding;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final viewModel ViewModel = new viewModel();
-    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -48,6 +47,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.ListItemClickL
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.simmerView.startShimmer();
+
         binding.IDHomePopup.IDHomeContainerPopup.setVisibility(View.GONE);
         binding.IDHomePopup.IDHomePopupCardView.setAlpha(0);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
